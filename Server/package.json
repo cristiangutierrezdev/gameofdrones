@@ -1,0 +1,35 @@
+{
+  "name": "gameofdrones",
+  "version": "1.0.0",
+  "description": "This is a game based in the clasic hand game called Rock, paper and scissors.",
+  "main": "/src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3pyp/gameofdrones.git"
+  },
+  "keywords": [
+    "Game",
+    "rock",
+    "paper",
+    "scissors",
+    "app"
+  ],
+  "author": "Cristian Gutierrez - @3pyp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3pyp/gameofdrones/issues"
+  },
+  "homepage": "https://github.com/3pyp/gameofdrones#readme",
+  "dependencies": {
+    "celebrate": "^9.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.1",
+    "morgan": "^1.9.1"
+  }
+}

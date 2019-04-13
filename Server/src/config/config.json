@@ -1,0 +1,6 @@
+{
+    "port": 4000,
+    "user": "3pyp",
+    "password": 12345678,
+    "db": "mongodb+srv://root:root@cluster0-07urh.mongodb.net/game-of-drones?retryWrites=true"
+}
