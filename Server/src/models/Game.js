@@ -2,57 +2,36 @@ const mongoose = require("mongoose");
 
 const gameSchema = new mongoose.Schema(
   {
-    players: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Player",
-        require: true
-      }
-    ],
+    player_one: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Player",
+      require: true
+    },
+    player_two: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Player",
+      require: true
+    },
     rounds: {
-      type: [
-        {
+      type: [{
           round_num: {
             type: Number,
-            default: 1
+            require: true
           },
-          player_one: {
-            type: [
-              {
-                weapon: {
-                  type: String,
-                  require: true
-                },
-                player: {
-                  type: mongoose.Schema.ObjectId,
-                  ref: "Player",
-                  require: true
-                }
-              }
-            ]
+          weapon_player_one: {
+            type: String,
+            require: true
           },
-          player_two: {
-            type: [
-              {
-                weapon: {
-                  type: String,
-                  require: true
-                },
-                player: {
-                  type: mongoose.Schema.ObjectId,
-                  ref: "Player",
-                  require: true
-                }
-              }
-            ]
+          weapon_player_two: {
+            type: String,
+            require: true
           },
           winner: {
             type: mongoose.Schema.ObjectId,
             ref: "Player",
             require: true
           }
-        }
-      ]
+        }]
     },
     winner: {
       type: mongoose.Schema.ObjectId,

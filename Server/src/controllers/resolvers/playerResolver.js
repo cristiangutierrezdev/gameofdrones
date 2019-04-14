@@ -13,7 +13,7 @@ module.exports = {
     });
   },
   getPlayers: () => {
-    return Player.findOne({ is_active: true })
+    return Player.find({ is_active: true })
       .exec()
       .then(player => {
         return player;
@@ -68,7 +68,7 @@ module.exports = {
     return Player.findByIdAndUpdate(
       playerid,
       {
-        $inc: { games_win: 1 }
+        $inc: { games_lost: 1 }
       },
       { new: true }
     )
