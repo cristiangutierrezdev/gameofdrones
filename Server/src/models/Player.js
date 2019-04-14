@@ -10,11 +10,15 @@ const playerSchema = new mongoose.Schema(
       type: Number,
       default: 3
     },
-    win: {
+    games_win: {
       type: Number
     },
-    lost: {
+    games_lost: {
       type: Number
+    },
+    is_active: {
+      type: Boolean,
+      default: true
     }
   },
   { timestamps: true }
