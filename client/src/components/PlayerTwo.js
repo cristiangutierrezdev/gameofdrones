@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header from "./Header";
 
 export default class PlayerTwo extends Component {
   constructor(props) {
@@ -13,22 +14,22 @@ export default class PlayerTwo extends Component {
     if (this.props.location.state === undefined) {
       this.props.history.push("/");
     } else {
-       this.setState({
-           player_name: this.props.location.state.players[1].name
-       })
+      this.setState({
+        player_name: this.props.location.state.players[1].name
+      });
     }
   }
 
   onReady = () => {
     this.props.history.push({
-        pathname: '/round/p2',
-        state: { 
-          game: this.props.location.state.game,
-          players: this.props.location.state.players,
-          weapon_player_one: this.props.state.weapon_player_one,
-          weapon_player_two: this.state.player_weapon
-         }
-      });
+      pathname: "/fight",
+      state: {
+        game: this.props.location.state.game,
+        players: this.props.location.state.players,
+        weapon_player_one: this.props.location.state.weapon_player_one,
+        weapon_player_two: this.state.player_weapon
+      }
+    });
   };
 
   btnChoose = () => {
@@ -51,18 +52,19 @@ export default class PlayerTwo extends Component {
     }
     element.parentElement.className += " scaled";
     this.setState({
-        player_weapon: element.alt
+      player_weapon: element.alt
     });
   };
 
   render() {
     return (
       <div className="PlayerTwo player">
+        <Header />
         <div className="p2-army">
           <div className="rock-p2 weapon">
             <img
-              src="./imgs/rock-p2.svg"
-              alt="Rock"
+              src="./imgs/scissors-p2.svg"
+              alt="Scissors"
               onClick={this.chooseWeapon}
             />
           </div>
@@ -75,8 +77,8 @@ export default class PlayerTwo extends Component {
           </div>
           <div className="scissors-p1 weapon">
             <img
-              src="./imgs/scissors-p2.svg"
-              alt="Scissors"
+              src="./imgs/rock-p2.svg"
+              alt="Rock"
               onClick={this.chooseWeapon}
             />
           </div>

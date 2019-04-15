@@ -81,6 +81,7 @@ h4 {
   width: 200px;
   padding: 0 50px;
   display: inline-block;
+  transition: all 0.3s ease-in-out
 }
 .player .weapon img {
   cursor: pointer

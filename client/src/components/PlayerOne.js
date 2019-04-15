@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header from "./Header";
 
 export default class PlayerOne extends Component {
   constructor(props) {
@@ -13,21 +14,21 @@ export default class PlayerOne extends Component {
     if (this.props.location.state === undefined) {
       this.props.history.push("/");
     } else {
-       this.setState({
-           player_name: this.props.location.state.players[0].name
-       })
+      this.setState({
+        player_name: this.props.location.state.players[0].name
+      })
     }
   }
 
   onReady = () => {
     this.props.history.push({
-        pathname: '/round/fight',
-        state: { 
-          game: this.props.location.state.game,
-          players: this.props.location.state.players,
-          weapon_player_one: this.state.player_weapon
-         }
-      });
+      pathname: "/p2",
+      state: {
+        game: this.props.location.state.game,
+        players: this.props.location.state.players,
+        weapon_player_one: this.state.player_weapon
+      }
+    });
   };
 
   btnChoose = () => {
@@ -50,13 +51,14 @@ export default class PlayerOne extends Component {
     }
     element.parentElement.className += " scaled";
     this.setState({
-        player_weapon: element.alt
+      player_weapon: element.alt
     });
   };
 
   render() {
     return (
       <div className="PlayerOne player">
+        <Header />
         <div className="p1-army">
           <div className="rock-p1 weapon">
             <img

@@ -19,13 +19,13 @@ module.exports = {
   getAllPlayers: async (req, res) => {
     const players = await getPlayers();
     players
-      ? res.status(302).send(players)
+      ? res.status(200).send(players)
       : res.status(404).send({ message: "Players not found" });
   },
   getOnePlayer: async (req, res) => {
     const player = await getPlayer(req.params.playerid);
     player
-      ? res.status(302).send(player)
+      ? res.status(200).send(player)
       : res.status(404).send({ message: "Player not found" });
   },
   playerLostsLife: async (req, res) => {

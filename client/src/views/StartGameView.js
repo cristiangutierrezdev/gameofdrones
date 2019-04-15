@@ -36,7 +36,7 @@ export default class StartGameView extends Component {
       const game = await createGame(playersToGame);
       game
         ? this.props.history.push({
-          pathname: '/round/p1',
+          pathname: '/p1',
           state: { 
             game: game,
             players: players
@@ -83,13 +83,13 @@ export default class StartGameView extends Component {
             </div>
             <div className="p2-army">
               <div className="rock-p2 weapon">
-                <img src="./imgs/rock-p2.svg" alt="Rock" />
+                <img src="./imgs/scissors-p2.svg" alt="Scissors" />
               </div>
               <div className="paper-p2 weapon">
                 <img src="./imgs/paper-p2.svg" alt="Paper" />
               </div>
               <div className="scissors-p2 weapon">
-                <img src="./imgs/scissors-p2.svg" alt="Scissors" />
+                <img src="./imgs/rock-p2.svg" alt="Rock" />
               </div>
             </div>
           </div>

@@ -29,7 +29,6 @@ const gameSchema = new mongoose.Schema(
           winner: {
             type: mongoose.Schema.ObjectId,
             ref: "Player",
-            require: true
           }
         }]
     },

@@ -20,6 +20,23 @@ export const createPlayers = players => {
     });
 };
 
+export const getPlayer = playersid => {
+  let players = [];
+  return axios
+    .get(`${BASE_URL}/get/player/${playersid[0].playerid}`)
+    .then(player => {
+      players.push(player.data);
+      return axios.get(`${BASE_URL}/get/player/${playersid[1].playerid}`);
+    })
+    .then(player => {
+      players.push(player.data);
+      return players;
+    })
+    .catch(err => {
+      return false;
+    });
+};
+
 export const createGame = players => {
   return axios
     .post(`${BASE_URL}/create/game`, players)
@@ -31,6 +48,56 @@ export const createGame = players => {
     });
 };
 
-// export const createRound = (player,weapon) =>{
-//   return axios.post(`${BASE_URL}/addround/game/`, player)
-// }
+export const createRound = (gameid, round) => {
+  return axios
+    .post(`${BASE_URL}/addround/game/${gameid}`, round)
+    .then(game => {
+      return game;
+    })
+    .catch(err => {
+      return false;
+    });
+};
+export const winsGame = playerid => {
+  return axios
+    .patch(`${BASE_URL}/winsgame/player/${playerid}`)
+    .then(player => {
+      return player;
+    })
+    .catch(err => {
+      return false;
+    });
+};
+export const lostsGame = playerid => {
+  return axios
+    .patch(`${BASE_URL}/lostsgame/player/${playerid}`)
+    .then(player => {
+      return player;
+    })
+    .catch(err => {
+      return false;
+    });
+};
+export const lostslife = playerid => {
+  return axios
+    .patch(`${BASE_URL}/lostlife/player/${playerid}`)
+    .then(player => {
+      return player;
+    })
+    .catch(err => {
+      return false;
+    });
+};
+export const addWinner = (gameid, winnerid) => {
+  const winner = {
+    winner: winnerid
+  };
+  return axios
+    .put(`${BASE_URL}/addwinner/game/${gameid}`, winner)
+    .then(game => {
+      return game;
+    })
+    .catch(err => {
+      return false;
+    });
+};
