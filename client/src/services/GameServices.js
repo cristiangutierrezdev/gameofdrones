@@ -52,7 +52,7 @@ export const createRound = (gameid, round) => {
   return axios
     .post(`${BASE_URL}/addround/game/${gameid}`, round)
     .then(game => {
-      return game;
+      return game.data
     })
     .catch(err => {
       return false;
@@ -62,7 +62,7 @@ export const winsGame = playerid => {
   return axios
     .patch(`${BASE_URL}/winsgame/player/${playerid}`)
     .then(player => {
-      return player;
+      return player.data;
     })
     .catch(err => {
       return false;
@@ -72,7 +72,7 @@ export const lostsGame = playerid => {
   return axios
     .patch(`${BASE_URL}/lostsgame/player/${playerid}`)
     .then(player => {
-      return player;
+      return player.data;
     })
     .catch(err => {
       return false;
@@ -82,7 +82,7 @@ export const lostslife = playerid => {
   return axios
     .patch(`${BASE_URL}/lostlife/player/${playerid}`)
     .then(player => {
-      return player;
+      return player.data;
     })
     .catch(err => {
       return false;
@@ -95,7 +95,17 @@ export const addWinner = (gameid, winnerid) => {
   return axios
     .put(`${BASE_URL}/addwinner/game/${gameid}`, winner)
     .then(game => {
-      return game;
+      return game.data;
+    })
+    .catch(err => {
+      return false;
+    });
+};
+export const getGame = gameid => {
+  return axios
+    .get(`${BASE_URL}/get/game/${gameid}`)
+    .then(game => {
+      return game.data;
     })
     .catch(err => {
       return false;

@@ -5,7 +5,8 @@ import {
   winsGame,
   lostsGame,
   lostslife,
-  getPlayer
+  getPlayer,
+  getGame
 } from "../services/GameServices";
 import "./FightView.css";
 
@@ -25,7 +26,8 @@ export default class FightView extends Component {
         weapon_player_two: "",
         life: ""
       },
-      players: this.props.location.players,
+      players: this.props.location.state.players,
+      game: this.props.location.state.game,
       gameid: "",
       round_num: 1,
       counter: 0,
@@ -80,7 +82,7 @@ export default class FightView extends Component {
           document.querySelector("#life-p2").style.width = "33%";
         }
       }
-    }, 500);
+    }, 1000);
   };
   getPlayers = async playersid => {
     const players = await getPlayer(playersid);
@@ -100,12 +102,20 @@ export default class FightView extends Component {
         })
       : console.log("error");
   };
+  getGame = async gameid => {
+    const game = await getGame(gameid);
+    game
+      ? this.setState({
+          game: game
+        })
+      : console.log("error");
+  };
 
   chooseWeapon = () => {
     this.props.history.push({
       pathname: "/p1",
       state: {
-        game: this.props.location.state.game,
+        game: this.state.game,
         players: this.state.players
       }
     });
@@ -283,7 +293,9 @@ export default class FightView extends Component {
               weapon_player_two: "Scissors",
               winner: this.props.location.state.players[0]._id
             };
-            createRound(this.state.gameid, newRound01);
+            createRound(this.state.gameid, newRound01).then(game => {
+              this.getGame(this.state.gameid);
+            });
             winsGame(this.props.location.state.players[0]._id);
             lostsGame(this.props.location.state.players[1]._id);
             lostslife(this.props.location.state.players[1]._id).then(player => {
@@ -304,7 +316,9 @@ export default class FightView extends Component {
               weapon_player_two: "Rock",
               winner: this.props.location.state.players[0]._id
             };
-            createRound(this.state.gameid, newRound02);
+            createRound(this.state.gameid, newRound02).then(game => {
+              this.getGame(this.state.gameid);
+            });
             winsGame(this.props.location.state.players[0]._id);
             lostsGame(this.props.location.state.players[1]._id);
             lostslife(this.props.location.state.players[1]._id).then(player => {
@@ -325,7 +339,9 @@ export default class FightView extends Component {
               weapon_player_two: "Paper",
               winner: this.props.location.state.players[0]._id
             };
-            createRound(this.state.gameid, newRound03);
+            createRound(this.state.gameid, newRound03).then(game => {
+              this.getGame(this.state.gameid);
+            });
             winsGame(this.props.location.state.players[0]._id);
             lostsGame(this.props.location.state.players[1]._id);
             lostslife(this.props.location.state.players[1]._id).then(player => {
@@ -346,7 +362,9 @@ export default class FightView extends Component {
               weapon_player_two: "paper",
               winner: this.props.location.state.players[1]._id
             };
-            createRound(this.state.gameid, newRound04);
+            createRound(this.state.gameid, newRound04).then(game => {
+              this.getGame(this.state.gameid);
+            });
             winsGame(this.props.location.state.players[1]._id);
             lostsGame(this.props.location.state.players[0]._id);
             lostslife(this.props.location.state.players[0]._id).then(player => {
@@ -367,7 +385,9 @@ export default class FightView extends Component {
               weapon_player_two: "Scissors",
               winner: this.props.location.state.players[1]._id
             };
-            createRound(this.state.gameid, newRound05);
+            createRound(this.state.gameid, newRound05).then(game => {
+              this.getGame(this.state.gameid);
+            });
             winsGame(this.props.location.state.players[1]._id);
             lostsGame(this.props.location.state.players[0]._id);
             lostslife(this.props.location.state.players[0]._id).then(player => {
@@ -388,7 +408,9 @@ export default class FightView extends Component {
               weapon_player_two: "Rock",
               winner: this.props.location.state.players[1]._id
             };
-            createRound(this.state.gameid, newRound06);
+            createRound(this.state.gameid, newRound06).then(game => {
+              this.getGame(this.state.gameid);
+            });
             winsGame(this.props.location.state.players[1]._id);
             lostsGame(this.props.location.state.players[0]._id);
             lostslife(this.props.location.state.players[0]._id).then(player => {
@@ -408,7 +430,9 @@ export default class FightView extends Component {
               weapon_player_one: "Rock",
               weapon_player_two: "Rock"
             };
-            createRound(this.state.gameid, newRound07);
+            createRound(this.state.gameid, newRound07).then(game => {
+              this.getGame(this.state.gameid);
+            });
             break;
           case "Paper Paper":
             document.querySelector("#scissors-p1").style.display = "none";
@@ -423,13 +447,15 @@ export default class FightView extends Component {
               weapon_player_one: "Paper",
               weapon_player_two: "Paper"
             };
-            createRound(this.state.gameid, newRound08);
+            createRound(this.state.gameid, newRound08).then(game => {
+              this.getGame(this.state.gameid);
+            });
             break;
           case "Scissors Scissors":
             document.querySelector("#paper-p1").style.display = "none";
-            document.querySelector("#paper-p1").style.display = "none";
+            document.querySelector("#rock-p1").style.display = "none";
             document.querySelector("#paper-p2").style.display = "none";
-            document.querySelector("#paper-p2").style.display = "none";
+            document.querySelector("#rock-p2").style.display = "none";
             this.setState({
               tie: `tie!`
             });
@@ -438,7 +464,9 @@ export default class FightView extends Component {
               weapon_player_one: "Paper",
               weapon_player_two: "Paper"
             };
-            createRound(this.state.gameid, newRound09);
+            createRound(this.state.gameid, newRound09).then(game => {
+              this.getGame(this.state.gameid);
+            });
             break;
           default:
             break;
