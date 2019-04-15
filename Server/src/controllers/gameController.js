@@ -1,4 +1,4 @@
-const { newGame, newRound, newWinner } = require("./resolvers/gameResolver");
+const { newGame, newRound, newWinner, getGame } = require("./resolvers/gameResolver");
 
 module.exports = {
   createGame: async (req, res) => {
@@ -18,5 +18,11 @@ module.exports = {
     game
       ? res.status(200).send(game)
       : res.status(400).send({ message: "Has been occurred an Error" });
+  },
+  getTheGame: async(req, res) => {
+    const game = await getGame(req.params.gameid)
+    game
+      ? res.status(200).send(game)
+      : res.status(404).send({message: "Game not found"})
   }
 };

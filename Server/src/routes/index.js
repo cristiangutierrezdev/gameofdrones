@@ -35,5 +35,6 @@ router.delete("/delete/player/:playerid", playerController.deleteOnePlayer);
 router.post("/create/game", [createGameValidator], gameController.createGame);
 router.post("/addround/game/:gameid", gameController.addRound);
 router.put("/addwinner/game/:gameid", gameController.addWinner);
+router.get("/get/game/:gameid", gameController.getTheGame);
 
 module.exports = router;

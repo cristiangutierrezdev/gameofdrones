@@ -42,5 +42,15 @@ module.exports = {
       .catch(err => {
         return false;
       });
+  },
+  getGame: gameid => {
+    return Game.findById(gameid)
+      .exec()
+      .then(game => {
+        return game;
+      })
+      .catch(err => {
+        return false;
+      });
   }
 };
