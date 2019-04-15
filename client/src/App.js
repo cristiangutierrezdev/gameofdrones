@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import "./App.css";
+
+import StartGameView from "./views/StartGameView";
+import Header from "./components/Header";
+import PlayerOne from "./components/PlayerOne";
+import PlayerTwo from "./components/PlayerTwo";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <main className="App">
+          <Route exact path="/round/p1" component={Header} />
+          <Route exact path="/round/p2" component={Header} />
+          <Route exact path="/round/p1" component={PlayerOne} />
+          <Route exact path="/round/p2" component={PlayerTwo} />
+          <Route exact path="/" component={StartGameView} />
+        </main>
+      </BrowserRouter>
     );
   }
 }
