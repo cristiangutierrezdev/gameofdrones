@@ -1,134 +1,168 @@
-.StartGameView{
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center
+.StartGameView {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
-.StartGameView .container{
-    width: 100%
+.StartGameView .container {
+  width: 100%;
 }
-.StartGameView .title{
-    padding: 20px;
-    width: max-content;
-    margin: 0 auto
+.StartGameView .title {
+  padding: 20px;
+  width: max-content;
+  margin: 0 auto;
 }
 .StartGameView .title h4,
 .StartGameView .title h1 {
-    margin: 0;
-    line-height: 50px
+  margin: 0;
+  line-height: 50px;
 }
 .StartGameView .title h4 {
-    font-size: 3em;
+  font-size: 3em;
 }
 .StartGameView .title h1 {
-    font-size: 5em;
-    line-height: 110px
+  font-size: 5em;
+  line-height: 110px;
 }
 .StartGameView .weapon {
-    width: 130px;
-    display: inline-block;
+  width: 130px;
+  display: inline-block;
 }
 .StartGameView .players-container {
-    display: flex;
-    justify-content: space-around;
-    width: max-content;
-    margin: 0 auto;
-    padding: 30px;
+  display: flex;
+  justify-content: space-around;
+  width: max-content;
+  margin: 0 auto;
+  padding: 30px;
 }
 .StartGameView .players-container .p1-army {
-    padding-right: 30px
+  padding-right: 30px;
 }
 .StartGameView .players-container .p2-army {
-    padding-left: 30px
+  padding-left: 30px;
 }
 .StartGameView .form-container {
-    padding: 0px;
+  padding: 0px;
 }
-.StartGameView .form-container .form{
-    display: flex;
-    justify-content: space-around;
-    width: max-content;
-    margin: 0 auto
+.StartGameView .form-container .form {
+  display: flex;
+  justify-content: space-around;
+  width: max-content;
+  margin: 0 auto;
 }
-.StartGameView .form-container .form h2{
-    font-style: italic;
-    font-weight: 800;
-    margin: 0;
-    padding: 0 100px
+.StartGameView .form-container .form h2 {
+  font-style: italic;
+  font-weight: 800;
+  margin: 0;
+  padding: 0 100px;
 }
 
 /* INPUT STYLES */
 
+.StartGameView .form-control::placeholder {
+  /* Firefox, Chrome, Opera */
+  color: #fff;
+  font-style: italic;
+  font-weight: 300;
+}
 
-.StartGameView .form-control::placeholder { /* Firefox, Chrome, Opera */ 
-    color: #fff;
-    font-style: italic;
-    font-weight: 300 
-  } 
-  
-  .StartGameView .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: #fff;
-    font-style: italic;
-    font-weight: 300 
-  } 
-  
-  .StartGameView .form-control::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: #fff;
-    font-style: italic;
-    font-weight: 300 
-  } 
+.StartGameView .form-control:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #fff;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.StartGameView .form-control::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #fff;
+  font-style: italic;
+  font-weight: 300;
+}
+.StartGameView .form-control {
+  color: #fff;
+  background-color: #fff0;
+  border: none;
+  border-bottom: 1px solid #fff;
+  border-radius: initial;
+  font-size: 20px;
+  padding: 0 20px;
+}
+.StartGameView .form-control:focus {
+  color: #fff;
+  background-color: #fff0;
+  border-color: #fff0;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0);
+  border-bottom: 1px solid #fff;
+}
+.StartGameView input:focus::-webkit-input-placeholder {
+  color: transparent;
+  transition: all 0.2s;
+}
+.StartGameView input:focus:-moz-placeholder {
+  color: transparent;
+  transition: all 0.2s;
+}
+.StartGameView input:focus::-moz-placeholder {
+  color: transparent;
+  transition: all 0.2s;
+}
+.StartGameView input:focus:-ms-input-placeholder {
+  color: transparent;
+  transition: all 0.2s;
+}
+.StartGameView input:-internal-autofill-previewed,
+input:-internal-autofill-selected,
+textarea:-internal-autofill-previewed,
+textarea:-internal-autofill-selected,
+select:-internal-autofill-previewed,
+select:-internal-autofill-selected {
+  background-color: rgba(255, 255, 255, 0) !important;
+  background-image: none !important;
+  color: rgb(255, 255, 255) !important;
+}
+/* Change Autocomplete styles in Chrome*/
+.StartGameView input:-webkit-autofill,
+.StartGameView input:-webkit-autofill:hover,
+.StartGameView input:-webkit-autofill:focus textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: rgba(255, 255, 255) !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important ;
+  transition: background-color 5000s ease-in-out 0s;
+  border-bottom: 1px solid #fff;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 992px) {
+  .StartGameView .weapon {
+    width: 100px;
+  }
   .StartGameView .form-control {
-    color: #fff;
-    background-color: #fff0;
-    border: none;
-    border-bottom: 1px solid #fff;
-    border-radius: initial;
-    font-size: 20px;
-    padding: 0 20px
+    width: 20%;
   }
-  .StartGameView .form-control:focus {
-    color: #fff;
-    background-color: #fff0;
-    border-color: #fff0;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0);
-    border-bottom: 1px solid #fff;
+  .StartGameView .form-container .form h2 {
+    padding: 0 70px;
   }
-  .StartGameView input:focus::-webkit-input-placeholder {
-    color:transparent;
-    transition: all 0.2s
-   }
-  .StartGameView input:focus:-moz-placeholder {
-    color:transparent;
-    transition: all 0.2s
-   } 
-  .StartGameView input:focus::-moz-placeholder {
-    color:transparent;
-    transition: all 0.2s
-   }
-  .StartGameView input:focus:-ms-input-placeholder {
-    color:transparent;
-    transition: all 0.2s
-   } 
-  .StartGameView input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected {
-    background-color: rgba(255, 255, 255, 0) !important;
-    background-image: none !important;
-    color: rgb(255, 255, 255) !important;
+}
+@media screen and (max-width: 768px) {
+  .StartGameView .weapon {
+    width: 80px;
   }
-  /* Change Autocomplete styles in Chrome*/
-  .StartGameView input:-webkit-autofill,
-  .StartGameView input:-webkit-autofill:hover, 
-  .StartGameView input:-webkit-autofill:focus
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover
-  textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-    border: none;
-    -webkit-text-fill-color: rgba(255, 255, 255) !important;
-    -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important ;
-    transition: background-color 5000s ease-in-out 0s;
-    border-bottom: 1px solid #fff;
+  .StartGameView .form-container .form h2 {
+    padding: 0 20px;
   }
+  .StartGameView .title h1 {
+    font-size: 5em;
+    line-height: 70px;
+  }
+  .StartGameView .form-control {
+    font-size: 1em;
+  }
+}
