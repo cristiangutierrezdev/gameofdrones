@@ -254,8 +254,6 @@ export default class FightView extends Component {
             {this.lostLifebar(this.state.player_one)}
             {this.lostLifebar(this.state.player_two)}
           </div>
-          <div className="names-container" />
-          <div className="life-container" />
         </div>
       </div>
     );

@@ -4,6 +4,7 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
+  padding-top: 30px;
 }
 .FightView .container {
   width: 100%;
@@ -68,16 +69,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 20px;
   width: 50%;
 }
 .FightView .players-container .life-p1 {
-  justify-content: flex-end;
-  padding-right: 60px;
-}
-.FightView .players-container .life-p2 {
   justify-content: flex-start;
   padding-left: 20px;
+}
+.FightView .players-container .life-p2 {
+  justify-content: flex-end;
+  padding-right: 60px;
 }
 .FightView .players-container .life-bar {
   border: 1px solid #fff;
@@ -101,4 +101,117 @@
 .FightView .round-wins {
   line-height: 60px !important;
   text-align: center;
+}
+
+/* MEDIA QUERIES */ /* MEDIA QUERIES */ /* MEDIA QUERIES */
+/* MEDIA QUERIES */ /* MEDIA QUERIES */ /* MEDIA QUERIES */
+/* MEDIA QUERIES */ /* MEDIA QUERIES */ /* MEDIA QUERIES */
+
+
+@media screen and (max-width: 1100px) {
+  .FightView .players-container {
+    max-width: 900px;
+  }
+  .FightView .weapon {
+    width: 100px;
+  }
+  .FightView .vs h2 {
+    font-size: 3em;
+  }
+  .FightView .vs {
+    padding: 0px;
+  }
+  .FightView .round-wins {
+    line-height: 30px !important;
+  }
+  .FightView .players-container .life-p1 {
+    padding-left: 0;
+  }
+  .FightView .players-container .life-p2 {
+    padding-right: 30px;
+  }
+}
+@media screen and (max-width: 830px) {
+  .App {
+    height: auto;
+  }
+  .FightView {
+    height: auto;
+  }
+  .FightView .players-container {
+    justify-content: center;
+    padding: 50px 20px;
+  }
+  .FightView .players-container .p1-army,
+  .FightView .players-container .p2-army {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%
+  }
+  .FightView .players-container .btn-container {
+    width: 100%;
+  }
+  .FightView .players-container .life-p1,
+  .FightView .players-container .life-p2 {
+    padding: 0;
+    justify-content: center;
+  }
+  .FightView .players-container .life-p1 h3,
+  .FightView .players-container .life-p2 h3 {
+    display: none;
+  }
+  .FightView .players-container .life-p1 .life-bar,
+  .FightView .players-container .life-p2 .life-bar {
+    width: 100%;
+    height: 10px
+  }
+  .FightView .players-container .p1-name {
+    order: 1;
+    margin: 0;
+    min-width: auto;
+    width: 20%
+  }
+  .FightView .players-container .life-p1 {
+    order: 2;
+    width: 30%
+  }
+  .FightView .players-container .p1-army {
+    order: 3;
+    margin: 30px 0;
+  }
+  .FightView .vs {
+    order: 4;
+  }
+  .FightView .players-container .btn-container {
+    order: 5;
+  }
+  .FightView .players-container .life-p2 {
+    order: 8;
+    width: 30%
+  }
+  .FightView .players-container .p2-name {
+    order: 7;
+    margin: 0;
+    min-width: auto;
+    width: 20%
+  }
+  .FightView .players-container .p2-army {
+    order: 6;
+    margin: 30px 0;
+    flex-flow: row-reverse;
+  }
+}
+@media screen and (max-width: 600px) {
+  .FightView h2 {
+    font-size: 1.8em;
+  }
+  .FightView .players-container .life-p1,
+  .FightView .players-container .life-p2 {
+   width: 60%
+  }
+  .FightView .players-container {
+    justify-content: space-around;
+    padding: 50px 20px;
+  }
 }
