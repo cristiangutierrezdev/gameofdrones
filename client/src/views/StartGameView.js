@@ -92,13 +92,7 @@ export default class StartGameView extends Component {
                 <img src="./imgs/rock-p2.svg" alt="Rock" />
               </div>
             </div>
-          </div>
-          {/* PLAYERS NAME */}
-          {/* PLAYERS NAME */}
-          {/* PLAYERS NAME */}
-          <div className="form-container">
-            <div className="form">
-              <input
+            <input
                 id="player_one"
                 className="form-control"
                 type="text"
@@ -115,11 +109,12 @@ export default class StartGameView extends Component {
                 value={this.state.players.player_two}
                 onChange={this.onInputChange}
               />
-            </div>
+          </div>
+         
             <div className="btn-container">
               <h4>Insert names to start the game</h4>
               {this.btnStart()}
-            </div>
+            
           </div>
         </div>
       </div>

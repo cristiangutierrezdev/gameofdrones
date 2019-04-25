@@ -1,8 +1,15 @@
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 body,
 html,
 .App {
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 .App {
   display: flex;
@@ -13,36 +20,36 @@ html,
 
 body {
   background: #5eb2cc;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 img {
-  width: 100%
+  width: 100%;
 }
 
 h1 {
-  margin:0;
+  margin: 0;
   font-weight: 800;
   font-style: italic;
-  font-size: 2.6em
+  font-size: 2.6em;
 }
 h2 {
-  margin:0;
+  margin: 0;
   font-weight: 700;
   font-style: italic;
-  font-size: 2.1em
+  font-size: 2.1em;
 }
 h3 {
-  margin:0;
+  margin: 0;
   font-weight: 400;
   font-style: normal;
-  font-size: 1.5em
+  font-size: 1.5em;
 }
 h4 {
-  margin:0;
+  margin: 0;
   font-weight: 300;
   font-style: italic;
-  font-size: 1.3em
+  font-size: 1.3em;
 }
 
 .btn-container .btn {
@@ -58,16 +65,16 @@ h4 {
 }
 .btn-container .btn-active {
   cursor: pointer;
-  background: #FFFFFF
+  background: #ffffff;
 }
-.btn-container .btn-active:hover{
+.btn-container .btn-active:hover {
   box-shadow: 0 0 2px 2px #ffffffb3;
 }
 .btn-container {
   display: flex;
   justify-content: center;
   width: max-content;
-  margin: 30px auto;
+  margin: 20px auto;
   flex-direction: column;
 }
 .player {
@@ -78,23 +85,43 @@ h4 {
   flex-direction: column;
 }
 .player .weapon {
-  width: 200px;
+  width: 250px;
   padding: 0 50px;
   display: inline-block;
-  transition: all 0.3s ease-in-out
+  transition: all 0.3s ease-in-out;
 }
 .player .weapon img {
-  cursor: pointer
+  cursor: pointer;
 }
-.player .weapon:hover{
-  transform: scale(1.5)
+.player .weapon:hover {
+  transform: scale(1.5);
 }
 .scaled {
-  transform: scale(1.5)
+  transform: scale(1.5);
 }
 
 .PlayerOne .p1-army,
 .PlayerTwo .p2-army {
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+/* MEDIA QUERIES */ /* MEDIA QUERIES */ /* MEDIA QUERIES */
+/* MEDIA QUERIES */ /* MEDIA QUERIES */ /* MEDIA QUERIES */
+/* MEDIA QUERIES */ /* MEDIA QUERIES */ /* MEDIA QUERIES */
+
+
+@media screen and (max-width: 768px) {
+  .player .weapon {
+    width: 220px;
+    margin: 15px;
+  }
+  .PlayerOne .p1-army,
+  .PlayerTwo .p2-army {
+    display: flex;
+    flex-flow: column;
+  }
+  h2 {
+    font-size: 1.6em;
+  }
 }

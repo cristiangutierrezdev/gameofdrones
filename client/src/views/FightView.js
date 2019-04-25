@@ -228,8 +228,6 @@ export default class FightView extends Component {
                 <img src="./imgs/rock-p2.svg" alt="Rock" />
               </div>
             </div>
-          </div>
-          <div className="names-container">
             <div className="p1-name">
               <h2>{this.state.player_one.player_one_name}</h2>
             </div>
@@ -237,8 +235,6 @@ export default class FightView extends Component {
             <div className="p2-name">
               <h2>{this.state.player_two.player_two_name}</h2>
             </div>
-          </div>
-          <div className="life-container">
             <div className="life-p1">
               <div>
                 <h3>Life</h3>
@@ -255,10 +251,10 @@ export default class FightView extends Component {
                 <div id="life-p2" className="bar" />
               </div>
             </div>
+            {this.lostLifebar(this.state.player_one)}
+            {this.lostLifebar(this.state.player_two)}
           </div>
         </div>
-        {this.lostLifebar(this.state.player_one)}
-        {this.lostLifebar(this.state.player_two)}
       </div>
     );
   }
