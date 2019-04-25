@@ -29,3 +29,8 @@ code {
     font-size: 14px
   }
 }
+@media screen and (max-width: 576px) {
+  #main{
+    height: auto;
+  }
+}
