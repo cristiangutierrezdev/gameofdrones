@@ -18,17 +18,9 @@ const gameSchema = new mongoose.Schema(
             type: Number,
             require: true
           },
-          weapon_player_one: {
-            type: String,
-            require: true
-          },
-          weapon_player_two: {
-            type: String,
-            require: true
-          },
           winner: {
-            type: mongoose.Schema.ObjectId,
-            ref: "Player",
+            type: String,
+            require: true
           }
         }]
     },

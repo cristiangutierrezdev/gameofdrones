@@ -1,23 +1,11 @@
 import React, { Component } from "react";
 import Header from "../../components/Header";
 import { hideSiblings } from "../../helpers";
-// import {
-//   createRound,
-//   winsGame,
-//   lostsGame,
-//   lostslife,
-//   getPlayer,
-//   getGame
-// } from "../../services/GameServices";
 import "./styles.css";
 
 export default class Page extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      bar1: "",
-      bar2: ""
-    };
     this.Rock_1 = React.createRef();
     this.Paper_1 = React.createRef();
     this.Scissors_1 = React.createRef();
@@ -28,15 +16,15 @@ export default class Page extends Component {
 
   setLife = playerLife => {
     if (playerLife === 2) {
-      return "66";
+      this.props.goToWinnerPage()
     } else if (playerLife === 1) {
       return "33";
     } else if (playerLife < 1) {
-      this.props.history.push("/winner");
+      return "66";
     }
   };
 
-  btnFight = () => {
+  renderBtnFight = () => {
     if (this.props.counter > 0) {
       return false;
     } else if (this.props.winner || this.props.tie) {
@@ -124,7 +112,7 @@ export default class Page extends Component {
             <div className="p1-name">
               <h2>{this.props.player_one.player}</h2>
             </div>
-            <div className="btn-container">{this.btnFight()}</div>
+            <div className="btn-container">{this.renderBtnFight()}</div>
             <div className="p2-name">
               <h2>{this.props.player_two.player}</h2>
             </div>

@@ -25,21 +25,24 @@ class FightView extends Component {
     }
     this.setState({
       round_num: this.props.game[0].roundsNumb
-    })
+    });
   }
-  saveRound = ()=>{
+
+  saveRound = () => {
     const newRound = {
       roundNumb: this.props.game[0].roundsNumb,
       winner: this.state.winner || "tie!"
-    }
-    this.props.incRound(this.props.game[0].id, newRound)
-    this.props.history.push('/p1')
-  }
+    };
+    this.props.incRound(this.props.game[0].id, newRound);
+    this.props.history.push("/p1");
+  };
+
   onFight = () => {
     const playerOneWeapon = this.props.players[0].weapon;
     const playerTwoWeapon = this.props.players[1].weapon;
     let counter = 3;
-    const interval = setInterval(() => {
+
+    const timer = setInterval(() => {
       if (counter > 0) {
         this.setState({
           counter: counter
@@ -47,10 +50,10 @@ class FightView extends Component {
         counter--;
       } else {
         this.setState({
-          counter: counter
+          counter
         });
         this.chooseWinner(playerOneWeapon, playerTwoWeapon);
-        clearInterval(interval);
+        clearInterval(timer);
       }
     }, 1000);
   };
@@ -58,20 +61,18 @@ class FightView extends Component {
   chooseWinner = async (playerOneWeapon, playerTwoWeapon) => {
     const winner = await compare(playerOneWeapon, playerTwoWeapon);
     if (winner === 1) {
-      const newState = { ...this.state };
-      newState.winner = this.props.players[0].player;
-      this.setState(newState);
-      this.props.lostLife(2)
+      this.setState({ winner: this.props.players[0].player });
+      this.props.lostLife(2);
     } else if (winner === 2) {
-      const newState = { ...this.state };
-      newState.winner = this.props.players[1].player;
-      this.setState(newState);
-      this.props.lostLife(1)
+      this.setState({ winner: this.props.players[1].player });
+      this.props.lostLife(1);
     } else {
-      const newState = { ...this.state };
-      newState.tie = "tie!";
-      this.setState(newState);
+      this.setState({ tie: "tie!" });
     }
+  };
+
+  goToWinnerPage = () => {
+    this.props.history.push("/winner");
   };
 
   render() {
@@ -85,6 +86,7 @@ class FightView extends Component {
         winner={this.state.winner}
         onFight={this.onFight}
         saveRound={this.saveRound}
+        goToWinnerPage={this.goToWinnerPage}
       />
     );
   }
