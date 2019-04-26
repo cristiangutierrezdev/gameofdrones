@@ -14,7 +14,7 @@ class WinnerView extends Component {
   }
 
   componentDidMount() {
-    !this.props.players[0].life === 2
+    !this.props.players[0].life === 0
       ? this.setState({ winner: this.props.players[0].player })
       : this.setState({ winner: this.props.players[1].player });
 
@@ -35,7 +35,7 @@ class WinnerView extends Component {
           ? (winner = player._id)
           : (winner = "");
         player_two = player._id;
-        return this.savePlayer(player_one, player_two, rounds, winner);
+        return this.saveGame(player_one, player_two, rounds, winner);
       })
       .catch(err => {});
   }

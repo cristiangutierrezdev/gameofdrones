@@ -3,10 +3,12 @@ const { Game } = require("../../models");
 module.exports = {
   newGame: game => {
     return new Promise((resolve, reject) => {
-      const { player_one, player_two } = game;
+      const { player_one, player_two, rounds, winner } = game;
       const newGame = Game({
         player_one,
-        player_two
+        player_two,
+        rounds,
+        winner
       });
       newGame.save((err, game) => {
         err ? reject(new Error(false)) : resolve(game);

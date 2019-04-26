@@ -11,9 +11,9 @@ export default class WinnerView extends Component {
           <h1>{this.props.winner} is the new Emperor of</h1>
           <h1 className="games-of-drones">Game of drones!</h1>
           <div className="btn-container">
-            <Link className="btn btn-active" to="/">
+            <a className="btn btn-active" href="/">
               Play Again
-            </Link>
+            </a>
           </div>
         </div>
       </div>

@@ -16,11 +16,11 @@ export default class Page extends Component {
 
   setLife = playerLife => {
     if (playerLife === 2) {
-      this.props.goToWinnerPage()
+      return "66";
     } else if (playerLife === 1) {
       return "33";
     } else if (playerLife < 1) {
-      return "66";
+      this.props.goToWinnerPage();
     }
   };
 

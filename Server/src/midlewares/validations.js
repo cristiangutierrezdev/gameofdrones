@@ -9,7 +9,9 @@ module.exports = {
     createGameValidator: celebrate({
         body: Joi.object().keys({
             player_one: Joi.string().required(),
-            player_two: Joi.string().required()
+            player_two: Joi.string().required(),
+            rounds: Joi.array().required(),
+            winner: Joi.string().required()
         })
       })
 }
