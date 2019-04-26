@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { createPlayers, createGame } from "../services/GameServices";
-import "./StartGameView.css";
+import { createPlayers, createGame } from "../../services/GameServices";
+import "./styles.css";
 
-export default class StartGameView extends Component {
+export default class Page extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { addWinner } from "../services/GameServices";
-import "./WinnerView.css";
+import { addWinner } from "../../services/GameServices";
+import "./styles.css";
 
 export default class WinnerView extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import {
   createRound,
   winsGame,
@@ -7,10 +7,10 @@ import {
   lostslife,
   getPlayer,
   getGame
-} from "../services/GameServices";
-import "./FightView.css";
+} from "../../services/GameServices";
+import "./styles.css";
 
-export default class FightView extends Component {
+export default class Page extends Component {
   constructor(props) {
     super(props);
 

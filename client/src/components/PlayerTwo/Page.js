@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Header from "./Header";
+import Header from "../Header";
 
-export default class PlayerTwo extends Component {
+export default class Page extends Component {
   constructor(props) {
     super(props);
     this.state = {
