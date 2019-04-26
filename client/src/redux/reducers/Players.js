@@ -21,8 +21,9 @@ const reducer = (state = defaultState, { type, payload }) => {
       return [...state];
     }
     case lostLife :{
-      const player = state.find(n => n.id === payload.playerId);
-      player.life = player.life--;
+      const player = state.find(n => n.id === payload);
+      const newLife = player.life -1;
+      player.life = newLife;
       return [...state];
     }
     default:

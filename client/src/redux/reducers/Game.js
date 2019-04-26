@@ -11,13 +11,16 @@ const reducer = (state = defaultState, { type, payload }) => {
       return [
         ...state, 
         { id,
-          game: payload,
-          rounds: 1
+          players: payload.players,
+          roundsNumb: 1,
+          rounds: []
         }];
     }
     case incRound :{
-      const game = state.find(n => n.id === payload);
-      game.rounds = game.rounds++;
+      const game = state.find(n => n.id === payload.gameId);
+      game.rounds.push(payload.round)
+      const newRoundsNumb = game.roundsNumb + 1;
+      game.roundsNumb = newRoundsNumb
       return [...state];
     }
     case addWinner: {

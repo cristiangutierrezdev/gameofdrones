@@ -1,10 +1,12 @@
 export const type = "createGame";
 
-const createGame = Game => {
+const createGame = players => {
   return {
     type,
-    payload: Game
+    payload: {
+      players
+    }
   };
 };
 
-export default createGame
+export default createGame;

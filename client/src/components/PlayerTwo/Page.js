@@ -19,7 +19,7 @@ export default class Page extends Component {
       <div className="PlayerTwo player">
         <Header />
         <div className="p2-army">
-          <div className="rock-p2 weapon">
+          <div className="scissors-p1 weapon">
             <img
               src="./imgs/scissors-p2.svg"
               alt="Scissors"
@@ -33,7 +33,7 @@ export default class Page extends Component {
               onClick={this.props.chooseWeapon}
             />
           </div>
-          <div className="scissors-p1 weapon">
+          <div className="rock-p2 weapon">
             <img
               src="./imgs/rock-p2.svg"
               alt="Rock"

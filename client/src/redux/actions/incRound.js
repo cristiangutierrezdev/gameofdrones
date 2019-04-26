@@ -1,9 +1,9 @@
 export const type = "incRound";
 
-const incRound = gameId => {
+const incRound = (gameId,round) => {
   return {
     type,
-    payload: gameId
+    payload: {gameId,round}
   };
 };
 

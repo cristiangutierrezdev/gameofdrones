@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../../components/Header";
-import { Link } from "react-router-dom";
+import { hideSiblings } from "../../helpers";
 // import {
 //   createRound,
 //   winsGame,
@@ -14,17 +14,36 @@ import "./styles.css";
 export default class Page extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      bar1: "",
+      bar2: ""
+    };
+    this.Rock_1 = React.createRef();
+    this.Paper_1 = React.createRef();
+    this.Scissors_1 = React.createRef();
+    this.Rock_2 = React.createRef();
+    this.Paper_2 = React.createRef();
+    this.Scissors_2 = React.createRef();
   }
+
+  setLife = playerLife => {
+    if (playerLife === 2) {
+      return "66";
+    } else if (playerLife === 1) {
+      return "33";
+    } else if (playerLife < 1) {
+      this.props.history.push("/winner");
+    }
+  };
 
   btnFight = () => {
     if (this.props.counter > 0) {
       return false;
     } else if (this.props.winner || this.props.tie) {
       return (
-        <Link className="btn btn-active" to="/p1">
+        <span className="btn btn-active" onClick={this.props.saveRound}>
           Choose Weapon
-        </Link>
+        </span>
       );
     } else {
       return (
@@ -59,6 +78,15 @@ export default class Page extends Component {
     }
   };
 
+  showWeapons = () => {
+    if (this.props.winner || this.props.tie) {
+      const weaponPlayerOne = `${this.props.player_one.weapon}_1`;
+      const weaponPlayerTwo = `${this.props.player_two.weapon}_2`;
+      hideSiblings(this[weaponPlayerOne].current);
+      hideSiblings(this[weaponPlayerTwo].current);
+    }
+  };
+
   render() {
     return (
       <div className="FightView">
@@ -66,13 +94,13 @@ export default class Page extends Component {
           <Header />
           <div className="players-container">
             <div className="p1-army">
-              <div id="rock-p1" className="rock-p1 weapon">
+              <div ref={this.Rock_1} className="rock-p1 weapon">
                 <img src="./imgs/rock-p1.svg" alt="Rock" />
               </div>
-              <div id="paper-p1" className="paper-p1 weapon">
+              <div ref={this.Paper_1} className="paper-p1 weapon">
                 <img src="./imgs/paper-p1.svg" alt="Paper" />
               </div>
-              <div id="scissors-p1" className="scissors-p1 weapon">
+              <div ref={this.Scissors_1} className="scissors-p1 weapon">
                 <img src="./imgs/scissors-p1.svg" alt="Scissors" />
               </div>
             </div>
@@ -83,13 +111,13 @@ export default class Page extends Component {
               </div>
             </div>
             <div className="p2-army">
-              <div id="scissors-p2" className="rock-p2 weapon">
+              <div ref={this.Scissors_2} className="scissors-p2 weapon">
                 <img src="./imgs/scissors-p2.svg" alt="Scissors" />
               </div>
-              <div id="paper-p2" className="paper-p2 weapon">
+              <div ref={this.Paper_2} className="paper-p2 weapon">
                 <img src="./imgs/paper-p2.svg" alt="Paper" />
               </div>
-              <div id="rock-p2" className="scissors-p2 weapon">
+              <div ref={this.Rock_2} className="rock-p2 weapon">
                 <img src="./imgs/rock-p2.svg" alt="Rock" />
               </div>
             </div>
@@ -105,7 +133,13 @@ export default class Page extends Component {
                 <h3>Life</h3>
               </div>
               <div className="life-bar">
-                <div id="life-p1" className="bar" />
+                <div
+                  id="life-p1"
+                  className="bar"
+                  style={{
+                    width: `${this.setLife(this.props.player_one.life)}%`
+                  }}
+                />
               </div>
             </div>
             <div className="life-p2">
@@ -113,13 +147,18 @@ export default class Page extends Component {
                 <h3>Life</h3>
               </div>
               <div className="life-bar">
-                <div id="life-p2" className="bar" />
+                <div
+                  id="life-p2"
+                  className="bar"
+                  style={{
+                    width: `${this.setLife(this.props.player_two.life)}%`
+                  }}
+                />
               </div>
             </div>
-            {/* {this.lostLifebar(this.state.player_one)}
-            {this.lostLifebar(this.state.player_two)} */}
           </div>
         </div>
+        {this.showWeapons()}
       </div>
     );
   }

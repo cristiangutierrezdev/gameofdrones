@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { compareChoices } from "../../helpers";
+import { compare } from "../../helpers";
+import lostLife from "../../redux/actions/lostLife";
+import incRound from "../../redux/actions/incRound";
 import Page from "./Page";
 
 class FightView extends Component {
@@ -21,8 +23,18 @@ class FightView extends Component {
     ) {
       this.props.history.push("/");
     }
+    this.setState({
+      round_num: this.props.game[0].roundsNumb
+    })
   }
-
+  saveRound = ()=>{
+    const newRound = {
+      roundNumb: this.props.game[0].roundsNumb,
+      winner: this.state.winner || "tie!"
+    }
+    this.props.incRound(this.props.game[0].id, newRound)
+    this.props.history.push('/p1')
+  }
   onFight = () => {
     const playerOneWeapon = this.props.players[0].weapon;
     const playerTwoWeapon = this.props.players[1].weapon;
@@ -37,10 +49,29 @@ class FightView extends Component {
         this.setState({
           counter: counter
         });
-        console.log( compareChoices(playerOneWeapon, playerTwoWeapon));
+        this.chooseWinner(playerOneWeapon, playerTwoWeapon);
         clearInterval(interval);
       }
     }, 1000);
+  };
+
+  chooseWinner = async (playerOneWeapon, playerTwoWeapon) => {
+    const winner = await compare(playerOneWeapon, playerTwoWeapon);
+    if (winner === 1) {
+      const newState = { ...this.state };
+      newState.winner = this.props.players[0].player;
+      this.setState(newState);
+      this.props.lostLife(2)
+    } else if (winner === 2) {
+      const newState = { ...this.state };
+      newState.winner = this.props.players[1].player;
+      this.setState(newState);
+      this.props.lostLife(1)
+    } else {
+      const newState = { ...this.state };
+      newState.tie = "tie!";
+      this.setState(newState);
+    }
   };
 
   render() {
@@ -53,18 +84,21 @@ class FightView extends Component {
         tie={this.state.tie}
         winner={this.state.winner}
         onFight={this.onFight}
+        saveRound={this.saveRound}
       />
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    players: state.Players
+    players: state.Players,
+    game: state.Game
   };
 };
 
 const mapDispatchToProps = {
-  // createPlayer
+  lostLife,
+  incRound
 };
 export default connect(
   mapStateToProps,

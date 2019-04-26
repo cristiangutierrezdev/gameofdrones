@@ -33,12 +33,19 @@
 }
 .FightView .players-container .p1-army {
   padding-right: 30px;
+  justify-content: center;
+  display: flex;
+  width: 40%
 }
 .FightView .players-container .p2-army {
   padding-left: 30px;
+  justify-content: center;
+  display: flex;
+  width: 40%
 }
 .FightView .vs {
   padding: 0 40px;
+  width: 20%
 }
 .FightView .vs h2 {
   font-weight: 800;
