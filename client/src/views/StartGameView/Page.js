@@ -1,60 +1,17 @@
 import React, { Component } from "react";
-import { createPlayers, createGame } from "../services/GameServices";
-import "./StartGameView.css";
+import "./styles.css";
 
-export default class StartGameView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      players: {
-        player_one: "",
-        player_two: ""
-      },
-      error: false
-    };
-  }
-
-  onInputChange = e => {
-    const { id, value } = e.target;
-    const newPlayers = { ...this.state.players };
-    newPlayers[id] = value;
-    this.setState({
-      players: newPlayers
-    });
-  };
-
-  startGame = async () => {
-    const players = await createPlayers(this.state.players);
-    if (players) {
-      const playersId = players.map(player => {
-        return player._id;
-      });
-      const playersToGame = {
-        player_one: playersId[0],
-        player_two: playersId[1]
-      };
-      const game = await createGame(playersToGame);
-      game
-        ? this.props.history.push({
-          pathname: '/p1',
-          state: { 
-            game: game,
-            players: players
-           }
-        })
-        : alert("Has been occurred an error, try again");
-    }
-  };
+export default class Page extends Component {
 
   btnStart = () => {
     if (
-      this.state.players.player_one === "" ||
-      this.state.players.player_two === ""
+      this.props.player_one === "" ||
+      this.props.player_two === ""
     ) {
       return <span className="btn">Start Game</span>;
     } else {
       return (
-        <span className="btn btn-active" onClick={this.startGame}>
+        <span className="btn btn-active" onClick={this.props.startGame}>
           Start Game
         </span>
       );
@@ -97,8 +54,8 @@ export default class StartGameView extends Component {
                 className="form-control"
                 type="text"
                 placeholder="Player 1 name"
-                value={this.state.players.player_one}
-                onChange={this.onInputChange}
+                value={this.props.player_one}
+                onChange={this.props.onInputChange}
               />
               <h2>VS</h2>
               <input
@@ -106,15 +63,14 @@ export default class StartGameView extends Component {
                 className="form-control"
                 type="text"
                 placeholder="Player 2 name"
-                value={this.state.players.player_two}
-                onChange={this.onInputChange}
+                value={this.props.player_two}
+                onChange={this.props.onInputChange}
               />
           </div>
          
             <div className="btn-container">
               <h4>Insert names to start the game</h4>
               {this.btnStart()}
-            
           </div>
         </div>
       </div>
