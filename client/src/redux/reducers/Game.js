@@ -1,9 +1,29 @@
-const defaultState = [];
+import { type as createGame } from "../actions/createGame";
+import { type as incRound } from "../actions/incRound";
+import { type as addWinner } from "../actions/addWinner";
 
+const defaultState = [];
+let id = 0
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case "createGame": {
-      return 
+    case createGame: {
+      id++
+      return [
+        ...state, 
+        { id,
+          game: payload,
+          rounds: 1
+        }];
+    }
+    case incRound :{
+      const game = state.find(n => n.id === payload);
+      game.rounds = game.rounds++;
+      return [...state];
+    }
+    case addWinner: {
+      const game = state.find(n => n.id === payload);
+      game.winner = payload;
+      return [...state];
     }
     default:
       return state;

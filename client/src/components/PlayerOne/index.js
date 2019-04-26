@@ -12,11 +12,14 @@ class PlayerOne extends Component {
     };
   }
 
-  onReady = () => {
-    const weapon = {
-      weapon_player_one: this.state.weapon
+  componentWillMount(){
+    if(this.props.players[0] === undefined){
+      this.props.history.push("/");
     }
-    this.props.addWeapon(weapon)
+  }
+
+  onReady = () => {
+    this.props.addWeapon(1, this.state.weapon)
     this.props.history.push('/p2')
   };
 
@@ -35,7 +38,7 @@ class PlayerOne extends Component {
   render() {
     return (
       <Page
-        player_name={this.props.players[0].player_one}
+        player_name={this.props.players[0].player}
         player_weapon={this.state.weapon}
         onReady={this.onReady}
         chooseWeapon={this.chooseWeapon}

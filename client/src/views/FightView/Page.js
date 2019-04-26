@@ -1,148 +1,34 @@
 import React, { Component } from "react";
 import Header from "../../components/Header";
-import {
-  createRound,
-  winsGame,
-  lostsGame,
-  lostslife,
-  getPlayer,
-  getGame
-} from "../../services/GameServices";
+import { Link } from "react-router-dom";
+// import {
+//   createRound,
+//   winsGame,
+//   lostsGame,
+//   lostslife,
+//   getPlayer,
+//   getGame
+// } from "../../services/GameServices";
 import "./styles.css";
 
 export default class Page extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      playersId: "",
-      player_one: {
-        player_one_name: "Player One",
-        weapon_player_one: "",
-        life: ""
-      },
-      player_two: {
-        player_two_name: "Player Two",
-        weapon_player_two: "",
-        life: ""
-      },
-      players: this.props.location.state.players,
-      game: this.props.location.state.game,
-      gameid: "",
-      round_num: 1,
-      counter: 0,
-      winner: "",
-      tie: ""
-    };
+    this.state = {};
   }
 
-  componentWillMount() {
-    if (this.props.location.state === undefined) {
-      this.props.history.push("/");
-    } else {
-      this.setState({
-        playersId: [
-          { playerid: this.props.location.state.players[0]._id },
-          { playerid: this.props.location.state.players[1]._id }
-        ],
-        player_one: {
-          player_one_name: this.props.location.state.players[0].name,
-          weapon_player_one: this.props.location.state.weapon_player_one,
-          life: this.props.location.state.players[0].life
-        },
-        player_two: {
-          player_two_name: this.props.location.state.players[1].name,
-          weapon_player_two: this.props.location.state.weapon_player_two,
-          life: this.props.location.state.players[1].life
-        },
-        gameid: this.props.location.state.game._id,
-        round_num: this.props.location.state.game.rounds.length + 1
-      });
-    }
-  }
-  componentDidMount() {
-    this.lostLifebar(this.state.player_one);
-    this.lostLifebar(this.state.player_two);
-    if (this.state.player_one.life <= 0 || this.state.player_two.life <= 0) {
-      this.props.history.push("/");
-    }
-  }
-  lostLifebar = player => {
-    setTimeout(() => {
-      if (player.life === 2) {
-        if (player.player_one_name === this.state.player_one.player_one_name) {
-          document.getElementById("life-p1").style.width = "67%";
-        } else {
-          document.querySelector("#life-p2").style.width = "67%";
-        }
-      } else if (player.life === 1) {
-        if (player.player_one_name === this.state.player_one.player_one_name) {
-          document.querySelector("#life-p1").style.width = "33%";
-        } else {
-          document.querySelector("#life-p2").style.width = "33%";
-        }
-      }
-    }, 1000);
-  };
-  getPlayers = async playersid => {
-    const players = await getPlayer(playersid);
-    players
-      ? this.setState({
-          players: players,
-          player_one: {
-            player_one_name: players[0].name,
-            weapon_player_one: "",
-            life: players[0].life
-          },
-          player_two: {
-            player_two_name: players[1].name,
-            weapon_player_two: "",
-            life: players[1].life
-          }
-        })
-      : console.log("error");
-  };
-  getGame = async gameid => {
-    const game = await getGame(gameid);
-    game
-      ? this.setState({
-          game: game
-        })
-      : console.log("error");
-  };
-
-  chooseWeapon = () => {
-    this.props.history.push({
-      pathname: "/p1",
-      state: {
-        game: this.state.game,
-        players: this.state.players
-      }
-    });
-  };
   btnFight = () => {
-    if (this.state.counter > 0) {
+    if (this.props.counter > 0) {
       return false;
-    } else if (
-      this.state.player_one.player_one_name === "" ||
-      this.state.player_two.player_two_name === ""
-    ) {
-      return <span className="btn">Fight</span>;
-    } else if (this.state.winner) {
+    } else if (this.props.winner || this.props.tie) {
       return (
-        <span className="btn btn-active" onClick={this.chooseWeapon}>
+        <Link className="btn btn-active" to="/p1">
           Choose Weapon
-        </span>
-      );
-    } else if (this.state.tie) {
-      return (
-        <span className="btn btn-active" onClick={this.chooseWeapon}>
-          Choose Weapon
-        </span>
+        </Link>
       );
     } else {
       return (
-        <span className="btn btn-active" onClick={this.onFight}>
+        <span className="btn btn-active" onClick={this.props.onFight}>
           Fight
         </span>
       );
@@ -150,53 +36,32 @@ export default class Page extends Component {
   };
 
   renderVs = () => {
-    if (this.state.counter > 0) {
-      return <h2>{this.state.counter}</h2>;
-    } else if (this.state.winner) {
+    if (this.props.counter > 0) {
+      return <h2>{this.props.counter}</h2>;
+    } else if (this.props.winner) {
       return (
         <h2 className="wins">
-          {this.state.winner}
+          {this.props.winner}
           <br />
           Wins!
         </h2>
       );
-    } else if (this.state.tie) {
+    } else if (this.props.tie) {
       return (
         <h2 className="wins">
           It's a
           <br />
-          {this.state.tie}
+          {this.props.tie}
         </h2>
       );
     } else {
       return <h2>VS</h2>;
     }
   };
-  winner = () => {
-    if (this.state.player_one.life === 0) {
-      this.props.history.push({
-        pathname: "/winner",
-        state: {
-          game: this.props.location.state.game,
-          winner: this.state.player_two.player_two_name,
-          winnerid: this.state.playersId[1]
-        }
-      });
-    } else if (this.state.player_two.life === 0) {
-      this.props.history.push({
-        pathname: "/winner",
-        state: {
-          game: this.props.location.state.game,
-          winner: this.state.player_one.player_one_name,
-          winnerid: this.state.playersId[0]
-        }
-      });
-    }
-  };
+
   render() {
     return (
       <div className="FightView">
-        {this.winner()}
         <div className="container">
           <Header />
           <div className="players-container">
@@ -214,7 +79,7 @@ export default class Page extends Component {
             <div className="vs">
               <div>{this.renderVs()}</div>
               <div>
-                <h3 className="round-wins">Round {this.state.round_num}</h3>
+                <h3 className="round-wins">Round {this.props.round}</h3>
               </div>
             </div>
             <div className="p2-army">
@@ -229,11 +94,11 @@ export default class Page extends Component {
               </div>
             </div>
             <div className="p1-name">
-              <h2>{this.state.player_one.player_one_name}</h2>
+              <h2>{this.props.player_one.player}</h2>
             </div>
             <div className="btn-container">{this.btnFight()}</div>
             <div className="p2-name">
-              <h2>{this.state.player_two.player_two_name}</h2>
+              <h2>{this.props.player_two.player}</h2>
             </div>
             <div className="life-p1">
               <div>
@@ -251,224 +116,11 @@ export default class Page extends Component {
                 <div id="life-p2" className="bar" />
               </div>
             </div>
-            {this.lostLifebar(this.state.player_one)}
-            {this.lostLifebar(this.state.player_two)}
+            {/* {this.lostLifebar(this.state.player_one)}
+            {this.lostLifebar(this.state.player_two)} */}
           </div>
         </div>
       </div>
     );
   }
-
-  onFight = () => {
-    let counter = 3;
-    const compareChoices = setInterval(() => {
-      if (counter > 0) {
-        this.setState({
-          counter: counter
-        });
-        counter--;
-      } else {
-        this.setState({
-          counter: counter
-        });
-        const choices = `${this.state.player_one.weapon_player_one} ${
-          this.state.player_two.weapon_player_two
-        }`;
-        switch (choices) {
-          case "Rock Scissors":
-            document.querySelector("#paper-p1").style.display = "none";
-            document.querySelector("#scissors-p1").style.display = "none";
-            document.querySelector("#paper-p2").style.display = "none";
-            document.querySelector("#rock-p2").style.display = "none";
-            this.setState({
-              winner: `${this.state.player_one.player_one_name}`
-            });
-            const newRound01 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Rock",
-              weapon_player_two: "Scissors",
-              winner: this.props.location.state.players[0]._id
-            };
-            createRound(this.state.gameid, newRound01).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            winsGame(this.props.location.state.players[0]._id);
-            lostsGame(this.props.location.state.players[1]._id);
-            lostslife(this.props.location.state.players[1]._id).then(player => {
-              this.getPlayers(this.state.playersId);
-            });
-            break;
-          case "Paper Rock":
-            document.querySelector("#rock-p1").style.display = "none";
-            document.querySelector("#scissors-p1").style.display = "none";
-            document.querySelector("#paper-p2").style.display = "none";
-            document.querySelector("#scissors-p2").style.display = "none";
-            this.setState({
-              winner: `${this.state.player_one.player_one_name}`
-            });
-            const newRound02 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Paper",
-              weapon_player_two: "Rock",
-              winner: this.props.location.state.players[0]._id
-            };
-            createRound(this.state.gameid, newRound02).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            winsGame(this.props.location.state.players[0]._id);
-            lostsGame(this.props.location.state.players[1]._id);
-            lostslife(this.props.location.state.players[1]._id).then(player => {
-              this.getPlayers(this.state.playersId);
-            });
-            break;
-          case "Scissors Paper":
-            document.querySelector("#rock-p1").style.display = "none";
-            document.querySelector("#paper-p1").style.display = "none";
-            document.querySelector("#scissors-p2").style.display = "none";
-            document.querySelector("#rock-p2").style.display = "none";
-            this.setState({
-              winner: `${this.state.player_one.player_one_name}`
-            });
-            const newRound03 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Scissors",
-              weapon_player_two: "Paper",
-              winner: this.props.location.state.players[0]._id
-            };
-            createRound(this.state.gameid, newRound03).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            winsGame(this.props.location.state.players[0]._id);
-            lostsGame(this.props.location.state.players[1]._id);
-            lostslife(this.props.location.state.players[1]._id).then(player => {
-              this.getPlayers(this.state.playersId);
-            });
-            break;
-          case "Rock Paper":
-            document.querySelector("#rock-p2").style.display = "none";
-            document.querySelector("#scissors-p2").style.display = "none";
-            document.querySelector("#paper-p1").style.display = "none";
-            document.querySelector("#scissors-p1").style.display = "none";
-            this.setState({
-              winner: `${this.state.player_two.player_two_name}`
-            });
-            const newRound04 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Rock",
-              weapon_player_two: "paper",
-              winner: this.props.location.state.players[1]._id
-            };
-            createRound(this.state.gameid, newRound04).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            winsGame(this.props.location.state.players[1]._id);
-            lostsGame(this.props.location.state.players[0]._id);
-            lostslife(this.props.location.state.players[0]._id).then(player => {
-              this.getPlayers(this.state.playersId);
-            });
-            break;
-          case "Paper Scissors":
-            document.querySelector("#rock-p2").style.display = "none";
-            document.querySelector("#paper-p2").style.display = "none";
-            document.querySelector("#rock-p1").style.display = "none";
-            document.querySelector("#scissors-p1").style.display = "none";
-            this.setState({
-              winner: `${this.state.player_two.player_two_name}`
-            });
-            const newRound05 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Paper",
-              weapon_player_two: "Scissors",
-              winner: this.props.location.state.players[1]._id
-            };
-            createRound(this.state.gameid, newRound05).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            winsGame(this.props.location.state.players[1]._id);
-            lostsGame(this.props.location.state.players[0]._id);
-            lostslife(this.props.location.state.players[0]._id).then(player => {
-              this.getPlayers(this.state.playersId);
-            });
-            break;
-          case "Scissors Rock":
-            document.querySelector("#scissors-p2").style.display = "none";
-            document.querySelector("#paper-p2").style.display = "none";
-            document.querySelector("#rock-p1").style.display = "none";
-            document.querySelector("#paper-p1").style.display = "none";
-            this.setState({
-              winner: `${this.state.player_two.player_two_name}`
-            });
-            const newRound06 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Scissors",
-              weapon_player_two: "Rock",
-              winner: this.props.location.state.players[1]._id
-            };
-            createRound(this.state.gameid, newRound06).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            winsGame(this.props.location.state.players[1]._id);
-            lostsGame(this.props.location.state.players[0]._id);
-            lostslife(this.props.location.state.players[0]._id).then(player => {
-              this.getPlayers(this.state.playersId);
-            });
-            break;
-          case "Rock Rock":
-            document.querySelector("#scissors-p1").style.display = "none";
-            document.querySelector("#paper-p1").style.display = "none";
-            document.querySelector("#scissors-p2").style.display = "none";
-            document.querySelector("#paper-p2").style.display = "none";
-            this.setState({
-              tie: `tie!`
-            });
-            const newRound07 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Rock",
-              weapon_player_two: "Rock"
-            };
-            createRound(this.state.gameid, newRound07).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            break;
-          case "Paper Paper":
-            document.querySelector("#scissors-p1").style.display = "none";
-            document.querySelector("#rock-p1").style.display = "none";
-            document.querySelector("#scissors-p2").style.display = "none";
-            document.querySelector("#rock-p2").style.display = "none";
-            this.setState({
-              tie: `tie!`
-            });
-            const newRound08 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Paper",
-              weapon_player_two: "Paper"
-            };
-            createRound(this.state.gameid, newRound08).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            break;
-          case "Scissors Scissors":
-            document.querySelector("#paper-p1").style.display = "none";
-            document.querySelector("#rock-p1").style.display = "none";
-            document.querySelector("#paper-p2").style.display = "none";
-            document.querySelector("#rock-p2").style.display = "none";
-            this.setState({
-              tie: `tie!`
-            });
-            const newRound09 = {
-              round_num: this.state.round_num,
-              weapon_player_one: "Paper",
-              weapon_player_two: "Paper"
-            };
-            createRound(this.state.gameid, newRound09).then(game => {
-              this.getGame(this.state.gameid);
-            });
-            break;
-          default:
-            break;
-        }
-        clearInterval(compareChoices);
-      }
-    }, 1000);
-  };
 }

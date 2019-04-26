@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { createPlayers, createGame } from "../../services/GameServices";
 import Page from "./Page";
-import createPlayers from "../../redux/actions/createPlayers";
+import createPlayer from "../../redux/actions/createPlayer";
 
 class StartGameView extends Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class StartGameView extends Component {
   };
 
   startGame = () => {
-    this.props.createPlayers(this.state.players);
+    this.props.createPlayer(this.state.players.player_one);
+    this.props.createPlayer(this.state.players.player_two);
     this.props.history.push('/p1')
   };
 
@@ -48,7 +49,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  createPlayers
+  createPlayer
 };
 
 export default connect(

@@ -1,9 +1,9 @@
 export const type = "addWeapon";
 
-const addWeapon = weapon => {
+const addWeapon = (playerId, weapon) => {
   return {
     type,
-    payload: weapon
+    payload: {playerId, weapon}
   };
 };
 

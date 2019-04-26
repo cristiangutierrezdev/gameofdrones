@@ -1,17 +1,29 @@
-import { type as createPlayers } from "../actions/createPlayers";
+import { type as createPlayer } from "../actions/createPlayer";
 import { type as addWeapon } from "../actions/addWeapon";
+import { type as lostLife } from "../actions/lostLife";
 
 const defaultState = [];
+let id = 0;
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case createPlayers: {
-      return [payload];
+    case createPlayer: {
+      id++;
+      return [
+        ...state, 
+        { id,
+          player: payload,
+          life: 3 
+        }];
     }
     case addWeapon: {
-      return [
-        ...state,
-          payload
-      ];
+      const player = state.find(n => n.id === payload.playerId);
+      player.weapon = payload.weapon;
+      return [...state];
+    }
+    case lostLife :{
+      const player = state.find(n => n.id === payload.playerId);
+      player.life = player.life--;
+      return [...state];
     }
     default:
       return state;
